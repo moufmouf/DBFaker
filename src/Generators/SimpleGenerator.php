@@ -1,32 +1,43 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kevin
- * Date: 12/06/17
- * Time: 07:21
- */
-
 namespace DBFaker\Generators;
 
 
-use Doctrine\DBAL\Schema\Column;
+use Faker\Factory;
+use Faker\Generator;
 
 class SimpleGenerator implements FakeDataGeneratorInterface
 {
 
     /**
-     * @var callable
+     * @var string
      */
-    private $callback;
+    private $fakerProperty;
 
-    public function __construct(callable $callback)
+    /**
+     * @var Generator
+     */
+    private $faker;
+
+    /**
+     * SimpleGenerator constructor.
+     * @param string $fakerProperty
+     * @param bool $generateUniqueValues
+     */
+    public function __construct(string $fakerProperty, bool $generateUniqueValues = false)
     {
-        $this->callback = $callback;
+        $this->faker = Factory::create();
+        if ($generateUniqueValues){
+            $this->faker->unique();
+        }
+        $this->fakerProperty = $fakerProperty;
     }
 
-    public function __invoke(Column $column)
+    /**
+     * @return mixed
+     */
+    public function __invoke()
     {
-        return call_user_func($this->callback, $column);
+        return $this->faker->{$this->fakerProperty};
     }
 
 

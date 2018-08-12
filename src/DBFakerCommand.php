@@ -2,16 +2,8 @@
 namespace DBFaker;
 
 
-use DBFaker\Generators\ComplexObjectGenerator;
 use DBFaker\Generators\GeneratorFactory;
-use DBFaker\Helpers\PrimaryKeyRegistry;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Schema\AbstractSchemaManager;
-use Doctrine\DBAL\Schema\Column;
-use Doctrine\DBAL\Schema\ForeignKeyConstraint;
-use Doctrine\DBAL\Schema\Table;
-use Doctrine\DBAL\Types\Type;
-use Faker\Generator;
 use Mouf\Database\SchemaAnalyzer\SchemaAnalyzer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,9 +19,7 @@ class DBFakerCommand extends Command
 
     /**
      * DBFaker constructor.
-     * @param Connection $connection
-     * @param GeneratorFactory $generatorFactory
-     * @param SchemaAnalyzer $schemaAnalyzer
+     * @param DBFaker $faker
      */
     public function __construct(DBFaker $faker)
     {
